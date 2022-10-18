@@ -1,7 +1,41 @@
-const { Router } = require('express');
+const { Router} = require('express');
+const { Pool, Client } = require('pg');
 const router = Router();
 
 const { getReseña, insertReseña, deleteReseña, updateReseña } = require('../controllers/index.controllers');
+
+const client = new Client({
+  user: 'postgres',
+  host: 'localhost',
+  password: '1234',
+  port: 5432
+})
+
+const c = async() => {
+  await client.connect()
+  await client.query('DROP DATABASE IF EXISTS tarea1;');
+  await client.query('CREATE DATABASE tarea1');
+  await client.end();
+}
+
+const d = async() => {
+  const client2 = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    password: '1234',
+    database: 'tarea1',
+    port: 5432
+  });
+  await client2.connect();
+  await client2.query('DROP TABlE IF EXISTS resenas;');
+  await client2.query('CREATE TABLE resenas (titulo text, nombre text, resumen text);');
+  await client2.end();
+
+}
+c();
+d();
+
+
 
 
 // INDEX
