@@ -12,11 +12,12 @@ const client = new Client({
 })
 
 const c = async() => {
-  await client.connect()
+  await client.connect();
   await client.query('DROP DATABASE IF EXISTS tarea1;');
   await client.query('CREATE DATABASE tarea1');
   await client.end();
 }
+c();
 
 const d = async() => {
   const client2 = new Client({
@@ -28,11 +29,10 @@ const d = async() => {
   });
   await client2.connect();
   await client2.query('DROP TABlE IF EXISTS resenas;');
-  await client2.query('CREATE TABLE resenas (titulo text, nombre text, resumen text);');
+  await client2.query('CREATE TABLE resenas(titulo text, nombre text, resumen text);');
   await client2.end();
 
 }
-c();
 d();
 
 
