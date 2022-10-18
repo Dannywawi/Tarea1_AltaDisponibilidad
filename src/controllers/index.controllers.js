@@ -3,7 +3,7 @@ const {Pool} = require('pg');
 // Database
 const config = {
     user: 'postgres',
-    host: 'localhost',
+    host: 'tarea1_altadisponibilidad-db-1',
     password: '1234',
     database: 'tarea1',
     port: '5432'

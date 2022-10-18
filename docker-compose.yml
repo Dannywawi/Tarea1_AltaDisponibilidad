@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: tarea1
+    ports:
+      - "5432:5432"
+  
+  a:
+    image: test
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    depends_on:
+      - db
+  
+  a2:
+    image: test
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    depends_on:
+      - db

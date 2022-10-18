@@ -6,27 +6,19 @@ const { getReseña, insertReseña, deleteReseña, updateReseña } = require('../
 
 const client = new Client({
   user: 'postgres',
-  host: 'localhost',
+  host: 'tarea1_altadisponibilidad-db-1',
   password: '1234',
   port: 5432
-})
+});
 
-const c = async() => {
-  await client.connect();
-  await client.query('DROP DATABASE IF EXISTS tarea1;');
-  await client.query('CREATE DATABASE tarea1');
-  await client.end();
-}
-c();
-
+const client2 = new Client({
+  user: 'postgres',
+  host: 'tarea1_altadisponibilidad-db-1',
+  password: '1234',
+  database: 'tarea1',
+  port: 5432
+});
 const d = async() => {
-  const client2 = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    password: '1234',
-    database: 'tarea1',
-    port: 5432
-  });
   await client2.connect();
   await client2.query('DROP TABlE IF EXISTS resenas;');
   await client2.query('CREATE TABLE resenas(titulo text, nombre text, resumen text);');
@@ -67,7 +59,16 @@ router.get('/updateReview', (req,res)=>{
 
 
 
-router.post('/resena/get/', getReseña);
+router.post('/resena/get/', async (req, res) => {
+  console.log( req.body)
+  let titulo = req.body.titulo
+
+  const SQLrequest = 'SELECT * FROM resenas WHERE titulo = $1;';
+  const response = await pool.query(SQLrequest, [titulo]);
+  console.log(response)
+  res.status(200).json(response.rows);
+
+});
 router.post('/resena/insert', insertReseña);
 router.post('/resena/delete', deleteReseña);
 router.post('/resena/update', updateReseña);
