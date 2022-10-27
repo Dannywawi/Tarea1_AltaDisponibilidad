@@ -36,7 +36,8 @@ const insertReseña = async (req, res) => {
     const response = await pool.query(SQLrequest, [titulo, autor, review1]);
 
     console.log(response);
-    res.send('Reseña creada');
+    
+    res.redirect("http://localhost:3000");
 }
 
 const deleteReseña = async (req, res) => {
