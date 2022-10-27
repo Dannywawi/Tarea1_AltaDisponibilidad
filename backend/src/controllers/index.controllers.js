@@ -49,7 +49,7 @@ const deleteReseña = async (req, res) => {
     const response = await pool.query(SQLrequest, [titulo]);
 
     console.log(response);
-    res.send('Reseña eliminada');
+    res.redirect("http://localhost:3000");
 }
 
 const updateReseña = async (req, res) => {
@@ -64,7 +64,7 @@ const updateReseña = async (req, res) => {
     const response = await pool.query(SQLrequest, [titulo, autor, review1]);
 
     console.log(response);
-    res.send('Reseña actualizada');
+    res.redirect("http://localhost:3000");
 }
 
 
